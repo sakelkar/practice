@@ -1,5 +1,6 @@
 #include <vector>
 #include <unordered_map>
+#include <queue>
 using namespace std;
 
 struct ListNode {
@@ -61,4 +62,37 @@ public:
 		}
 		return(lists.front());
 	} 
+};
+
+class Solution2 {
+public:
+	struct compare {
+		bool operator()(const ListNode *l, const ListNode *r) {
+			return(l->val > r->val);
+		}
+	};
+	ListNode *mergeKSortedLists(vector<ListNode *> lists) {
+		priority_queue<ListNode *, vector<ListNode *>, compare> q;
+		if (lists.empty()) {
+			return nullptr;
+		}
+		for (auto l: lists) {
+			q.push(l);
+		}
+		ListNode *answer = q.top();
+		q.pop();
+		if (answer->next) {
+			q.push(answer->next);
+		}
+		ListNode *tail = answer;
+		while (!q.empty()) {
+			tail->next = q.top();
+			q.pop();
+			tail = tail->next;
+			if (tail->next) {
+				q.push(tail->next);
+			}
+		}
+		return(answer);
+ 	}
 };
