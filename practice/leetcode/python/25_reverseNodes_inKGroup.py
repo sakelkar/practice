@@ -30,17 +30,41 @@ class Solution:
                 curr.next = prev
                 prev = curr
                 curr = next
+            tmp = groupPrev.next
+            groupPrev.next = kth
+            groupPrev = tmp
+        return(dummy.next)
+    def getKth(self, prev, k):
+        while prev and k > 0:
+            prev = prev.next
+            k -= 1
+
+class Solution2:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> ListNode:
+        dummy = ListNode(0)
+        groupPrev = dummy
+        while True:
+            kth = self.getKth(groupPrev, k)
+            if not kth:
+                break
+
+            groupNext = kth.next
+            prev, curr = kth.next, groupPrev.next
+            while curr != groupNext:
+                next = curr.next
+                curr.next = prev
+                prev = curr
+                curr = next
 
             tmp = groupPrev.next
             groupPrev.next = kth
             groupPrev = tmp
         return(dummy.next)
 
-
-
-
-
+                
     def getKth(self, prev, k):
         while prev and k > 0:
             prev = prev.next
             k -= 1
+            return prev
+
