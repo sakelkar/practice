@@ -13,6 +13,7 @@ class Solution:
         result, quad = [], []
         def kSum(k, start, target):
             if k != 2:
+                #TBD: Why len(nums) - k + 1. Explain This. 
                 for i in range(start, len(nums) - k + 1):
                     if i > start and nums[i] == nums[i-1]:
                         continue
