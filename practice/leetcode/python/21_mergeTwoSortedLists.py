@@ -12,7 +12,7 @@ class Solution:
                 curr.next = l1
                 l1, curr = l1.next, l1
             else:
-                curr.next = l2.val
+                curr.next = l2
                 l2, curr = l2.next, l2
 
         if l1 or l2:
