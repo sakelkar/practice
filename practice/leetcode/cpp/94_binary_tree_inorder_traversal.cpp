@@ -2,6 +2,7 @@
 //Given the root of a binary tree, return the inorder traversal 
 //of its nodes' values.
 
+#include <stack>
 #include <vector>
 using namespace std;
 struct TreeNode {
@@ -14,8 +15,40 @@ struct TreeNode {
 };
 
 class Solution {
+private:
+	void inOrder(TreeNode *root, vector<int> answer) {
+		if (!root) {
+			return;
+		}
+		inOrder(root->left, answer);
+		answer.push_back(root->val);
+		inOrder(root->right, answer);
+	}
 public:
-	vector<int> inorderTraversal_Morros(TreeNode *root) {
+	//using stack data structure
+	vector<int> inOrder_iterartive(TreeNode *root) {
+		vector<int> answer;
+		stack<TreeNode *> st;
+
+		while (root || !st.empty()) {
+			while (root) {
+				st.push(root->left);
+				root = root->left;
+			}
+			root = st.top();
+			st.pop();
+			answer.push_back(root->val);
+			root = root->right;
+		}
+		return(answer);
+
+	}
+	vector<int> inorderTraversal_Recurse(TreeNode *root) {
+		vector<int> answer;
+		inOrder(root, answer);
+		return(answer);
+	}
+	vector<int> inorderTraversal_Morris(TreeNode *root) {
 		vector<int> answer;
 		TreeNode *pre;
 
