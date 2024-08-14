@@ -60,3 +60,20 @@ class Solution:
         res = []
         dfs(self, res, 0, [], nums)
         return res
+
+    def subsetWithDup_Backtracking4(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums = sorted(nums)
+
+        def dfs(self, res, nums, idx, subset):
+            res.append(list(subset))
+
+            for i in range(idx, len(nums)):
+                if i > idx and nums[i] == nums[i-1]:
+                    continue
+                subset.append(nums[i])
+                dfs(self, res, nums, i+1, subset)
+                subset.pop()
+
+        dfs(self, res, nums, 0, [])
+        return(res)
