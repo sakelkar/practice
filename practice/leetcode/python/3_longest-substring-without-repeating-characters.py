@@ -15,3 +15,14 @@ class Solution:
             charSet.add(s[r])
             res = max(res, r - l + 1)
         return(res)
+
+    def lengthOfLongestSubstring2(self, s: str) -> int:
+        left = 0
+        seen = {}
+        length = 0
+        for right, char in enumerate(s):
+            if char in seen:
+                left = max(left, seen[char] + 1)
+            seen[char] = right 
+            length = max(length, right - left + 1)
+        return(length)
