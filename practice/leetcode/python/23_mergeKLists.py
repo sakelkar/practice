@@ -3,7 +3,7 @@
 #Merge all the linked-lists into one sorted linked-list and return it.
 from typing import Optional
 from typing import List
-from heapq import heappush
+from heapq import heapify, heappush
 from heapq import heappop
 
 class ListNode:
@@ -42,6 +42,42 @@ class Solution:
 
             lists = mergeLists
         return lists[0]
+
+
+    def mergeKSortedLists3(self, lists: Lists[Optional[ListNode]]) -> Optional[ListNode]:
+        setattr(ListNode, "__lt__", lambda a, b: a.val < b.val)
+        pq = [head for head in lists if head]
+        heapify(pq)
+        curr = dummy = ListNode(0)
+        while pq:
+            temp = heappop(pq)
+            if temp.next:
+                heappush(pq, temp.next)
+            curr.next = temp
+            curr = curr.next
+        return(dummy.next)
+
+
+
+    def mergeKSortedLists2(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if not lists or len(lists) == 0:
+            return None
+        
+        h = []
+        for i, l in enumerate(lists):
+            if l: heappush(h, (l.val, i))
+
+        tail = dummy = ListNode(0)
+        while h:
+            val, i = heappop(h)
+            tail.next = ListNode(val)
+            if lists[i].next:
+                heappush(h, (lists[i].next.val, i))
+                lists[i] = lists[i].next
+            tail = tail.next
+        return (dummy.next)
+
+
 
 #priority queue implementation
 class Solution2:
