@@ -1,6 +1,8 @@
 //https://leetcode.com/problems/longest-consecutive-sequence/description/
 //Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
 //You must write an algorithm that runs in O(n) time.
+#include <algorithm>
+#include <vector>
 using namespace std;
 #include <unordered_set>
 
@@ -30,4 +32,20 @@ public:
  		}
 		return(best);
  	}
+	int longestConsecutiveSequenceLength(vector<int> &nums) {
+		unordered_set<int> set(nums.begin(), nums.end());
+		int start = 0;
+		int best = 0;
+
+		for (auto n: nums) {
+			if (set.find(n-1) == set.end()) {
+				start = n;
+				while (set.find(start) != set.end()) {
+					start++;
+				}
+				best = max(best, start - n);
+			}
+		}
+		return(best);
+	}
 };
