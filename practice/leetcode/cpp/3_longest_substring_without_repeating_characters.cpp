@@ -29,6 +29,24 @@ public:
 		}
 		return(max_length);
 	}	
+	int lengthOfLongestSubstringWithoutRepeatingCharacters(string s) {
+		int left = 0;
+		int max_length = 0;
+		unordered_set<char> set;
+
+		for (int right = 0; right < s.length(); right++) {
+			if (set.count(s[right]) == 0) {
+				set.insert(s[right]);
+			} else {
+				while (set.count(s[right]) > 0) {
+					set.erase(s[left++]);
+				}
+				set.insert(s[right]);
+			}
+			max_length = max(max_length, right - left + 1);
+		}
+		return(max_length);
+	}
 	//lengthOfLongestSubstring2
 	int lengthOfLongestSubstring2(string s) {
 		unordered_map<char, int> map;
@@ -44,5 +62,23 @@ public:
 		}
 		return(max_length);
 
+	}
+	int lengthOfLongestSubstringWithoutRepeatingCharaters(string s) {
+		unordered_map<char, int> map;
+		int left = 0;
+		int max_length = 0;
+
+		for (int right = 0; right < s.length(); right++) {
+			//check if the current character is already inside the map
+			if (map.count(s[right]) > 0) {
+				//if its found then check if its value and update the current left index + 1 of its value
+				left = max(left, map.count(s[right]) + 1);
+			}
+			//update the map regardless for future reference
+			map[s[right]] = right;
+			//recalculate max_length with new left pointer
+			max_length = max(max_length, right - left + 1);
+		}
+		return(max_length);
 	}
 };

@@ -16,6 +16,19 @@ class Solution:
             res = max(res, r - l + 1)
         return(res)
 
+    def lengthOfLongestSubstring5(self, s: str) -> int:
+        left = 0
+        answer = 0
+        charSet = set()
+
+        for right in range(len(s)):
+            while s[right] in charSet:
+                charSet.remove(s[left])
+                left += 1
+            charSet.add(s[right])
+            answer = max(answer, right - left + 1)
+        return(answer)
+
     def lengthOfLongestSubstring2(self, s: str) -> int:
         left = 0
         seen = {}
@@ -26,3 +39,12 @@ class Solution:
             seen[char] = right 
             length = max(length, right - left + 1)
         return(length)
+
+    def lengthOfLongestSubstring3(self, s: str) -> int:
+        seen = {}
+        max_length = 0
+        for right, c in enumerate(s):
+            if c in seen:
+                left = max(left, seen[c] + 1)
+            seen[c] = right 
+            max_length = max(max_length, right - left + 1)

@@ -7,6 +7,19 @@
 from typing import List
 
 class Solution:
+    #strStr1
+    def strStr1(self, haystack: str, needle: str):
+        s_len = len(haystack)
+        t_len = len(needle)
+        for i in range(s_len - t_len):
+            for j in range(t_len):
+                if haystack[j] != needle[i]:
+                    break
+            if j == t_len:
+                return i - t_len 
+        return -1
+        
+
     def buildLPS(self, needle: str) -> List[int]:
         if len(needle) == 0:
             return []

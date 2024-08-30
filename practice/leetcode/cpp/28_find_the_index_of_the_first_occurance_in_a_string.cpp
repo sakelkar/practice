@@ -26,6 +26,25 @@ private:
 		return(lps);
 	}
 public:
+	//strStr
+	int strStr1(string s, string t) {
+		int s_len = s.length();
+		int t_len = t.length();
+		int i = 0;
+		int j = 0;
+
+		for (i = 0; i < s_len - t_len; i++) {
+			for (j = 0; j < t_len; j++) {
+				if (s[i] != t[j]) {
+					break;
+				}
+			}
+			if (j == t_len) {
+				return (i - j);
+			}
+		}
+		return -1;
+	}
 	int strStr(string s, string t) {
 		int s_len = s.length();
 		int t_len = t.length();
