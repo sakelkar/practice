@@ -18,6 +18,14 @@ class Solution:
         self.invertTree(root.right)
         return root
 
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root: 
+            return None
+
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
     def invertTree_iterative(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return root
@@ -32,4 +40,19 @@ class Solution:
                 stack.append(node.right)
 
         return(root)
+
+    def invertTree_iterative(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return None
+
+        st = [root]
+        while (len(st)):
+            node = st.pop()
+            node.left, node.right = node.right, node.left
+            if node.left:
+                st.append(node.left)
+            if node.right:
+                st.append(node.right)
+        return(root)
+        
 
