@@ -22,7 +22,16 @@ class Solution:
             curr.next = prev
             prev = curr
             curr = next
-        return(curr)
+        return(prev)
+
+    def reverseList2(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        prev, curr = None, head
+        while curr:
+            next = curr.next
+            curr.next = prev
+            prev = curr
+            curr = next
+        return prev 
 
     def reverseListRecursive(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
