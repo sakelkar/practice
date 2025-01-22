@@ -25,7 +25,6 @@
 //Explanation: The smallest positive integer 1 is missing.
 //
 using namespace std;
-
 #include <vector>
 class Solution {
 public:

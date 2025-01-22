@@ -26,7 +26,7 @@ class Solution:
         #first zero out all the useless numbers i.e. the numbers are less than 1 and greater than len(nums)
         length = len(nums)
         for i in range(len(nums)):
-            if nums[i] <= 0 or nums[i] >= len(nums):
+            if nums[i] <= 0 or nums[i] > length:
                 nums[i] = 0
         #now the record the frequency of each number at its correct place
         for i in range(len(nums)):
