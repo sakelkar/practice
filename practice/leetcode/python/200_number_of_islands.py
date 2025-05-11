@@ -66,6 +66,34 @@ class Solution:
         #return the count
         return answer
 
+    def num_of_islands_dfs2(self, grid: List[List[int]]) -> int:
+        if not grid:
+            return 0
+
+        answer = 0
+        rows, cols = len(grid), len(grid[0])
+
+        def dfs(r, c):
+            #visit all connected nodes and mark them as visited
+            grid[r][c] = 2
+
+            for d_r, d_c in (0, 1), (0, -1), (1, 0), (-1, 0):
+                new_r = r + d_r
+                new_c = c + d_c
+                if new_r >= 0 and new_r < rows and new_c >= 0 and new_c < cols:
+                    #if next node is not visited then do not recurse
+                    if grid[new_r][new_c] == 1:
+                        dfs(new_r, new_c)
+
+        for r, rv in enumerate(grid):
+            for c, cv in enumerate(rv):
+                if cv == 1:
+                    dfs(r, c)
+                    answer += 1
+
+        return answer
+
+
     def numIslands_bfs(self, grid: List[List[int]]) -> int:
         if not grid: 
             return 0
