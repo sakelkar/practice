@@ -16,3 +16,18 @@ class solution:
             if charMap[char] != -1:
                 return charMap[char]
         return -1
+
+
+class solution:
+    def firstUniqueChar(self, s: AnyStr) -> int:
+        charMap = {}
+        for index, char in enumerate(s):
+            if char in charMap:
+                charMap[char] = -1
+            else:
+                charMap[char] = index
+
+        for char in s:
+            if charMap[char] != -1:
+                return charMap[char]
+        return -1
