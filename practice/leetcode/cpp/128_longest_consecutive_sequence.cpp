@@ -48,4 +48,27 @@ public:
 		}
 		return(best);
 	}
+	// longrstConsecutiveSequenceLength2
+	int longrstConsecutiveSequenceLength2(vector<int> &nums) {
+		//create unordered set
+		unordered_set<int> set(nums.begin(), nums.end());
+		int start = 0;
+		int best = 0;
+
+		//now loop through the array
+		for (auto n: nums) {
+			//for current element if its present in the set then
+			if (set.find(n-1) == set.end()) {
+				start = n;
+				while (set.find(start) != set.end()) {
+					start++;
+				}
+				best = max(best, start - n);
+			}
+			//that is the new start
+			//now find if the + 1 is present if yes then move the start
+			//
+		}
+		return(best);
+	}
 };
