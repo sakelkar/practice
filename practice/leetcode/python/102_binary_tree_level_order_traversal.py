@@ -53,4 +53,22 @@ class Solution:
             answer.append(level)
         return(answer)
 
+    def levelOrder3(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
 
+        answer = []
+        queue = []
+        queue.append(root)
+
+        while len(queue):
+            level = []
+            for _ in range(len(queue)):
+                node = queue.pop(0)
+                level.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            answer.append(level)
+        return(answer)
