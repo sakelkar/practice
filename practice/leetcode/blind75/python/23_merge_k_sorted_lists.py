@@ -32,7 +32,6 @@ class Solution:
             lists = mergedLists
         return lists[0]
 
-
     def mergeKSortedLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
 
         def mergeTwoSortedLists(l1, l2):
