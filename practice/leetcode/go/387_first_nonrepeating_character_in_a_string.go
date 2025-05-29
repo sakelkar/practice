@@ -30,3 +30,18 @@ func firstUniqChar (s string) int {
 	return -1
 }
 
+func firstUniqChar(s string) int {
+	mapChar := make(map[rune)int)
+
+	for _, ch := range(s) {
+		mapChar[ch]++
+	}
+
+	for index, ch := range(s) {
+		if mapChar[ch] == 1 {
+			return index
+		}
+	}
+	return -1
+}
+
