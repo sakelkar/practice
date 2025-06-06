@@ -13,7 +13,7 @@ class Solution:
         #if Yes and if the new element is alreadu not in border_island then it will 
         #going
         def rec(i, j):
-            steps = 
+            steps =
             [
                 (0, 1),
                 (1, 0),
