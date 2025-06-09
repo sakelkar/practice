@@ -57,4 +57,3 @@ class Solution:
                 mergeLists.append(mergeTwoSortedLists(l1, l2))
             lists = mergedLists
         return(lists[0])
-

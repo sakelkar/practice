@@ -18,6 +18,23 @@ class Solution:
         dfs(0, [], 0)
         return result
 
+    def combinationSumIV(self, candidates: List[int], target: int) -> List[List[int]]:
+        answer = []
+
+        def dfs(i, entry, sum):
+            if sum == target:
+                answer.append(entry.copy())
+                return
+            if sum > sum or i >= len(candidates):
+                return
+
+            entry.append(candidates[i])
+            dfs(i, entry, sum + candidates[i])
+            entry.pop()
+            dfs(i+1, entry, sum)
+
+        dfs(0, [], 0)
+        return answer
 
     def combinationSumIII(self, candidates: List[int], target: int) -> List[List[int]]:
         result = []
