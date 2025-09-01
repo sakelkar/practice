@@ -53,12 +53,26 @@ class Solution:
 
         return(nums[left])
 
-    def findMin(self, nums: List[int]) -> int:
+    def findMin2(self, nums: List[int]) -> int:
         left, right = 0, len(nums) - 1
-        while left < right and nums[left] < nums[right]:
+        while left < right and nums[left] > nums[right]:
             mid = left + ((right - left) // 2)
             if nums[mid] > nums[right]:
                 left = mid + 1
             else:
                 right = mid
         return nums[left]
+
+    def findMin3(self, nums: List[int]) -> int:
+        left, right = 0, len(nums) - 1
+        while left < right:
+            mid = left + (right - left) // 2
+            #check for inversion. if mid value is greater than last then inversion is present in the right half 
+            #hence move the left to search in the right half
+            #else move the right to mid so that searching is done in left half
+            if nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+
+        return(nums[left])
