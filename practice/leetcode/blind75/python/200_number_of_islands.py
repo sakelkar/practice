@@ -68,3 +68,26 @@ class Solution:
                     answer += 1
 
         return answer
+
+    def numOfIslands2(self, grid: List[List[int]]) -> int:
+        if not grid or len(grid[0]) == 0:
+            return 0
+
+        answer = 0
+        rows, cols = len(grid), len(grid[0])
+
+        def dfs(r,c):
+            grid[r][c] = '2'
+            for d_r, d_c in (0,1),(1,0),(0,-1),(-1,0):
+                new_r = r + d_r
+                new_c = c + d_c
+                if 0 <= new_r < rows and 0 <= new_c < cols and grid[new_r][new_c] == '1':
+                    dfs(new_r, new_c)
+
+        for r in range(rows):
+            for c in range(cols):
+                if grid[r][c] == '1':
+                    dfs(r,c)
+                    answer += 1
+
+        return(answer)
