@@ -39,7 +39,7 @@ class Solution:
         return(max_so_far)
 
     def maxProductSimple3(self, nums: List[int]) -> int:
-        prefix, suffix, max_so_far = 0, 0, float('-inf')
+        prefix, suffix, max_so_far = 0, 0, 0
         for i in range(len(nums)):
             prefix = (prefix or 1) * nums[i]
             suffix = (suffix or 1) * nums[~i]
