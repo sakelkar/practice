@@ -23,7 +23,7 @@
 # 
 #Follow up: Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
 import collections
-from typing import Counter, List
+from typing import Collection, Counter, List
 import heapq
 
 class Solution:
@@ -53,3 +53,82 @@ class Solution:
         map = Counter(nums)
         sorted_map = dict(sorted(map.items(), key=lambda x: x[1], reverse=True)[:k])
         return list(sorted_map.keys())
+
+    def topKFrequent2(self, nums: List[int], k: int) -> List[int]:
+        freqMap = Counter(nums)
+        sorted_map = dict(sorted(freqMap.items(), key=lambda x:x[1], reverse=True)[:k])
+        return list(sorted_map.keys())
+
+
+    def topKFrequentNBucketSort(self, nums: List[int], k: int) -> List[int]:
+        # Step 1: Count frequency of each number
+        freq = Counter(nums)  
+        # Example: nums = [1,1,1,2,2,3]
+        # freq = {1: 3, 2: 2, 3: 1}
+        
+        # Step 2: Create buckets where index = frequency
+        buckets = [[] for _ in range(len(nums) + 1)]
+        # Example: len(nums) = 6 → buckets = [[], [], [], [], [], [], []]
+        
+        # Fill buckets: place each num in its frequency index
+        for num, count in freq.items():
+            buckets[count].append(num)
+        # buckets = [[], [3], [2], [1], [], [], []]
+        # index 1 → [3] (3 appears once)
+        # index 2 → [2] (2 appears twice)
+        # index 3 → [1] (1 appears thrice)
+        
+        # Step 3: Traverse from high freq to low freq
+        res = []
+        for i in range(len(buckets) - 1, 0, -1):  # from n down to 1
+            for num in buckets[i]:
+                res.append(num)
+                if len(res) == k:
+                    return res
+
+    #top K frequent element using bucket sort
+    def topKFreq(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)
+        buckets = [[] for _ in range(len(nums)+1)]
+
+        for num, count in freq.items():
+            buckets[count].append(num)
+
+        result = []
+        for i in range(len(buckets) -1, 0, -1):
+            for num in buckets[i]:
+                result.append(num)
+                if len(result) == k:
+                    return result
+
+        return []
+
+    def topKFancy(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)
+        sorted_map = dict(sorted(freq.items(), key=lambda x:x[1], reverse=True)[:k])
+        return list(sorted_map.keys())
+
+
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)
+        heap = []
+
+        for num, count in freq.items():
+            heapq.heappush(heap, (count, num))
+            if len(heap) > k:
+                heapq.heappop(heap)
+
+        return [num for count, num in heap]
+
+    #min_heap based solution
+    def topKFrequentHeap(self, nums: List[int], k: int) -> List[int]:
+        freq = Counter(nums)
+
+        heap = []
+        for num, count in freq.items():
+            heapq.heappush(heap, (count, num))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        return [num for count, num in heap]
+
+
