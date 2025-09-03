@@ -65,7 +65,81 @@ class Solution:
 
         return list(p_visited & a_visited)
 
+    def pacificAtlantic2(self, heights: List[List[int]]) -> List[List[int]]:
+        #make two separte sets for pacific based excursions and atlantic ones
+        pacific_v = set()
+        atlantic_v = set()
+
+        #convenience
+        rows, cols = len(heights), len(heights[0])
+        #define the tuple for x,y movement
+        dirs = ((0,1),(1,0),(0,-1),(-1,0))
+
+        #start from the ocean and go inwards if the next matrix cell has height >= the current height
+        #put the cell matching this condition in visited set
+        #pacific is left + top
+        #atlantic is right + bottom
+        if not heights or len(heights[0]) == 0:
+            return []
+
+        def dfs(r,c,visited_set):
+            #if r,c are already in visited then return immediately. Edge condition
+            if (r,c) in visited_set:
+                return
+
+            #add in the given set
+            visited_set.add((r,c))
+
+            #now traverse from this current cell to all direction subject to height as the criterion.
+            #since we are traversing inside the height of the new coordinate >= current coordinate
+            for dir in dirs:
+                new_r, new_c = r + dir[0], c + dir[1]
+                if 0 <= new_r < rows and 0 <= new_c < cols and heights[new_r][new_c] >= heights[r][c]:
+                    dfs(new_r, new_c, visited_set)
+
+        #pacific is all the rows and column 0
+        #atlantic is all the rows column m - 1
+        for row in range(rows):
+            dfs(row, 0, pacific_v)
+            dfs(row, cols - 1, atlantic_v)
 
 
+        #pacific all the columns and row = 0
+        #atlantic is all the columns and row n - 1
+        for col in range(cols):
+            dfs(0, col, pacific_v)
+            dfs(rows - 1, col, atlantic_v)
 
+        #At this point we have valid coordidates in both the sets just list them together
+        return list(atlantic_v & pacific_v)
 
+    def pacificAtlantic3(self, heights: List[List[int]]) -> List[List[int]]:
+        if len(heights) == 0 or len(heights[0]) == 0:
+            return []
+
+        pacific_v = set()
+        atlantic_v = set()
+
+        rows, cols = len(heights), len(heights[0])
+        dirs = ((0,1),(1,0),(0,-1),(-1,0))
+
+        def dfs(r,c,visited):
+            if (r,c) in visited:
+                return
+            visited.add((r,c))
+
+            for dir in dirs:
+                new_r, new_c = dir[0], dir[1]
+                if 0 <= new_r < rows and 0 <= new_c < cols and heights[new_r][new_c] >= heights[r][c]:
+                    dfs(new_r, new_c, visited)
+            pass
+
+        for row in range(rows):
+            dfs(row, 0, pacific_v)
+            dfs(row, cols - 1, atlantic_v)
+
+        for col in range(cols):
+            dfs(0, col, pacific_v)
+            dfs(rows - 1, col, atlantic_v)
+
+        return list(pacific_v & atlantic_v)

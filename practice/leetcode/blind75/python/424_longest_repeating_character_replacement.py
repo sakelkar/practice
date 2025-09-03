@@ -1,4 +1,5 @@
-#You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
+#You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character.
+#You can perform this operation at most k times.
 #
 #Return the length of the longest substring containing the same letter you can get after performing the above operations.
 #
@@ -58,4 +59,60 @@ class Solution:
 
             maxLength = max(maxLength, right - left + 1)
         return maxLength
+
+    def characterReplacement3(self, s: str, k: int) -> int:
+        #basic intiotion is that, keep expanding the current window
+        #i.e. keep moving the right pointer
+        #Every single step right movement keep capturing the frequencey map
+        #and also keep recording the max frequency per single step
+        #before moving to the right you need to keep checking
+        #total window length - maxFreq so far = delta
+        #as soon as the delta becomes the > k then its time to move the left pointer
+        #when you move move the left pointer you need to update the frequency map
+        #at every iteration keep recording the window length which satisfies the condition and also is within the range
+        #at the end of loop return the max windowlength where delta property was satisfied.
+        freq = defaultdict(int)
+        maxLength = 0
+        left = 0
+        maxFreq = 0
+
+        for right in range(len(s)):
+            index = ord(s[right]) - ord('A')
+            #1. first update the frequency
+            freq[index] += 1
+
+            #2. now update the maxfrequency
+            maxFreq = max(maxFreq, freq[index])
+
+            #now check the delta condition
+            if right - left + 1 - maxFreq > k:
+                #time to move the left pointer
+                #but before that reduce the frequency of the character at the left pointer
+                freq[ord(s[left]) - ord('A')] -= 1
+                #move left to the right
+                left += 1
+
+            #record the window length
+            maxLength = max(maxLength, right - left + 1)
+        return maxLength
+
+    def characterReplacement5(self, s: str, k: int) -> int:
+        freq = defaultdict(int)
+        maxFreq = 0
+        maxLength = 0
+        left = 0
+
+        for right in range(len(s)):
+            index = ord(s[right]) - ord('A')
+            freq[index] += 1
+            maxFreq = max(maxFreq, freq[index])
+
+            if ((right - left + 1 - maxFreq) > k):
+                freq[ord(s[left]) - ord('A')] -= 1
+                left += 1
+
+            maxLength = max(maxLength, right - left + 1)
+
+        return(maxLength)
+
 

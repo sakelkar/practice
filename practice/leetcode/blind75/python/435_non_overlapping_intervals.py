@@ -38,3 +38,21 @@ class Solution:
             else:
                 cnt += 1
         return cnt
+
+    def eraseOverlappingInterval(self, intervals: List[List[int]]) -> int:
+        #basic logic is as follows
+        #sort the list of intervals, using the 2nd value in the interval.
+        #once sorted then range over the list
+        #now compare the previously seen end against the start value of current interval
+        #if start of current interval is >= previous end then we are good and update the previous end with the current end
+        #else we have overlapping interval and increment the counter
+        #at the end of for loop return counter
+        count = 0
+        prevEnd = float('-inf')
+        for currStart, currEnd in sorted(intervals, key=lambda x: x[1]):
+            if currStart >= prevEnd:
+                prevEnd = currEnd
+            else:
+                count += 1
+
+        return count
