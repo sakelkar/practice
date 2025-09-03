@@ -80,7 +80,28 @@ class Solution:
 
         return serialize(subRoot) in serialize(root)
 
-    #TODO, do KMP based implementation also
+    def isSubtree(self, root: Optional[TreeNode], subroot: Optional[TreeNode]) -> bool:
+        #return False if root is nil and subroot is not nil
+        if not root and subroot:
+            return False
+
+        #return True if subroot is nil
+        if not subroot:
+            return False
+
+        def isMatch(root, subroot):
+            if not root:
+                return False
+
+            return root.val == subroot.val and isMatch(root.left, subroot.left) and isMatch(root.right, subroot.right)
+
+        def dfs(root, subroot):
+            if not root:
+                return False
+
+            isMatch(root, subroot) or dfs(root.left, subroot) or dfs(root.right, subroot)
+
+        return(dfs(root, subroot))
 
 
 
@@ -108,6 +129,5 @@ class Solution2:
 
         dfs(root)
 
-        
 
 

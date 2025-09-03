@@ -9,8 +9,16 @@ class Solution:
             maximum = max(maximum, curr_max)
         return maximum
 
-    def maxSubArraySum(self, nums: List[int]) -> int:
+    def maxSubArraySum1(self, nums: List[int]) -> int:
         curr_max, abs_max = 0, 0
         for n in nums:
-            curr_max = max(curr_max, n + curr_mac)
+            curr_max = max(curr_max, n + curr_max)
             abs_max = max(abs_max, curr_max)
+        return abs_max
+
+    def maxSubArraySum2(self, nums: List[int]) -> int:
+        curr_max, abs_max = 0, 0
+        for n in nums:
+            curr_max = max(curr_max, curr_max + n)
+            abs_max = max(abs_max, curr_max)
+        return abs_max
