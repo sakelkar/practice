@@ -19,6 +19,9 @@ from typing import List
 
 
 class Solution:
+    #as you progress throught the list keep recording min stock price and also
+    #keep recording max profit. max profit is current value - minv recorded so far
+    #at the end of the walk return the max profit recorded so far
     def maxProfit(self, prices: List[int]) -> int:
         maxP = 0
         minV = float('inf')
