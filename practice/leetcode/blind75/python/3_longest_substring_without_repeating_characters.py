@@ -75,3 +75,35 @@ class Solution:
             seen.add(s[right])
             answer = max(answer, right - left + 1)
         return answer
+
+    #basic approach is that, have left pointer = 0
+    #and have right pointer moving till the length of the string
+    #now if you find repeating character in the right pointer
+    #then keep moving left pointer until you do not remove the same character from left
+    #again recalculate the max length
+    #keep doing this until the end of the string
+    def lengthOfLongestSubstring10(self, s: str) -> int:
+        seen = set()
+        li = 0
+        maxLen = 0
+        for ri, char in enumerate(s):
+            while char in seen:
+                seen.remove(s[li])
+                li += 1
+            seen.add(char)
+            maxLen = max(maxLen, ri - li + 1)
+        return maxLen
+
+    def lengthOfLongestSubstring11(self, s: str) -> int:
+        #map of char and index
+        map = {}
+        li = 0
+        maxLen = 0
+
+        for ri in range(len(s)):
+            if s[ri] in map and map[s[ri]] >= li:
+                li = map[ri] + 1
+            map[s[ri]] = ri
+            maxLen = max(maxLen, ri - li + 1)
+        return maxLen
+
