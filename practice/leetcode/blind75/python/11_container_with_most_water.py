@@ -26,7 +26,7 @@ class Solution:
         while left < right:
             #calculate current area and also update maxArea if applicable
             maxArea = max(maxArea, (right - left)*min(height[left], height[right]))
-            #search for heigher bar based on current situation
+            #search for higher bar based on current situation
             if height[left] < height[right]:
                 left += 1
             else:

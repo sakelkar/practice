@@ -148,4 +148,24 @@ class Solution:
         dfs(0, [], 0)
         return answer
 
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        #basically repeatations are allowed. So what you have to do is that,
+        #take i and attempt to do the sum combination
+        #and also try to make i+1 to do the sum combination
+        answer = []
+        def dfs(i, entry, sum):
+            if i >= len(candidates) or sum > target:
+                return
+
+            if sum == target:
+                answer.append(entry.copy())
+                return
+
+            dfs(i, entry.append[candidates[i]], sum + candidates[i])
+            entry.pop()
+            dfs(i+1, entry, sum)
+
+        #index, running list, running sum
+        dfs(0, [], 0)
+        return answer
 
