@@ -29,3 +29,26 @@ class Solution:
             behind.next = behind.next.next
 
         return dummy.next
+
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if not head:
+            return None
+
+        dummy = ListNode()
+        dummy.next = head
+        ahead = head
+        behind = dummy
+
+        while n > 0 and ahead:
+            ahead = ahead.next
+            n -= 1
+
+        while ahead:
+            ahead = ahead.next
+            behind = behind.next
+
+        if behind.next:
+            behind.next = behind.next.next
+
+        return dummy.next
+

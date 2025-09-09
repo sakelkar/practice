@@ -56,3 +56,13 @@ class Solution:
                 count += 1
 
         return count
+
+    def eraseOverlappingInterval(self, intervals: List[List[int]]) -> int:
+        count = 0
+        prevEnd = float('-inf')
+        for currStart, currEnd in sorted(intervals, key=lambda x:x[1]):
+            if currStart >= prevEnd:
+                prevEnd = currEnd
+            else:
+                count += 1
+        return count

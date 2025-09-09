@@ -22,3 +22,11 @@ class Solution:
             curr_max = max(curr_max, curr_max + n)
             abs_max = max(abs_max, curr_max)
         return abs_max
+
+    def maxSubArraySum3(self, nums: List[int]) -> int:
+        curr_max, abs_max = nums[0], nums[0]
+        #in python range function is half open that is left is inclusive and right is exclusive
+        for i in range(1, len(nums)):
+            curr_max = max(curr_max, nums[i] + curr_max)
+            abs_max = max(abs_max, curr_max)
+        return abs_max
