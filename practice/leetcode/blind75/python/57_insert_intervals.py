@@ -22,7 +22,6 @@
 
 from typing import List
 
-
 class Solution:
     def insertInterval(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         if not intervals or len(intervals[0]):
@@ -38,6 +37,12 @@ class Solution:
         while i < n and intervals[i][1] < newInterval[0]:
             new.append(intervals[i])
             i += 1
+
+        #when you come here then if i < n then intervals[i][1] > newInterval[0]
+        #i.e. the current interval end is > newInterval start
+        #so the overalap ends when current interval start is > newInterval end
+        #so until newInterval end is >= current interval start keep merging
+        #all the intervals and make it as new interval
 
         #2. merge all the intervals in intervals and newInterval as applicable
         while i < n and intervals[i][0] <= newInterval[1]:
